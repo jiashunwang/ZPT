@@ -7,7 +7,7 @@
         content="Learning Generalizable Dexterous Manipulation from Human Grasp Affordance.">
   <!-- <meta name="keywords" content="Novel View Synthesis, Video Synthesis"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ILAD</title>
+  <title>ZPT</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <!--   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -68,23 +68,254 @@
           <h1 class="title is-2 publication-title">Zero-shot Pose Transfer for Unrigged Stylized 3D Characters</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://jiashunwang.github.io/">Jiashun Wang</a>,</span>
+              <a href="https://jiashunwang.github.io/">Jiashun Wang</a><sup>1*</sup>,</span>
             <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://sunshineatnoon.github.io/">Xueting Li</a><sup>2</sup>,</span>
+            <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://www.sifeiliu.net/">Sifei Liu</a><sup>2</sup>,</span>
+            <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/shalini-de-mello">Shalini De Mello</a><sup>2</sup>,</span>
+            <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://oraziogallo.github.io/">Orazio Gallo</a><sup>2</sup>,</span>
+            <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>3</sup>,</span>
+            <span class="author-block"></span>
+            <span class="author-block">
+              <a href="https://jankautz.com/">Jan Kautz</a><sup>2</sup></span>
+            <span class="author-block"></span>
+
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Carnegie Mellon Universty</span>
+            <span class="author-block"><sup>1</sup>Carnegie Mellon Universty,</span>
+            <span class="author-block"><sup>2</sup>NVIDIA,</span>
+            <span class="author-block"><sup>3</sup>UC San Diego</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">(* the work was done at an internship at NVIDIA)</span>
           </div>
 
-          
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              
+              <span class="link-block">
+                <a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Wang_Zero-Shot_Pose_Transfer_for_Unrigged_Stylized_3D_Characters_CVPR_2023_paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+              </span>
+            </div>
 
-          
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<section class="hero is-light is-small">
+  <div class="hero-body">
+  <div align="center">
+    <video autoplay loop playsinline controls width="60%">
+      <source src="./static/videos/zpt.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Transferring the pose of a reference avatar to stylized 3D characters of various shapes is a fundamental task in computer graphics. Existing methods either require the stylized characters to be rigged, or they use the stylized character in the desired pose as ground truth at training. We present a zero-shot approach that requires only the widely available deformed non-stylized avatars in training, and deforms stylized characters of significantly different shapes at inference. Classical methods achieve strong generalization by deforming the mesh at the triangle level, but this requires labelled correspondences. We leverage the power of local deformation, but without requiring explicit correspondence labels. We introduce a semi-supervised shape-understanding module to bypass the need for explicit correspondences at test time, and an implicit pose deformation module that deforms individual surface points to match the target pose. Furthermore, to encourage realistic and accurate deformation of stylized characters, we introduce an efficient volume-based test-time training procedure. Because it does not need rigging, nor the deformed stylized character at training time, our model generalizes to categories with scarce annotation, such as stylized quadrupeds. Extensive experiments demonstrate the effectiveness of the proposed method compared to the state-of-the-art approaches trained with comparable or more supervision.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+</div>
+</section>
+
+
+
+<section class="section">
+
+  <div class="container">
+    
+    <div class="columns is-centered has-text-centered">
+      
+      <div class="column is-two-thirds">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+          Given a query point and a learnable shape code, we take MLPs to predict the occupancy, part segmentation label and further use an inverse MLP to regress the query point.
+          </p>
+          <div align="center">
+          <video autoplay loop muted playsinline controls width="90%">
+            <source src="./static/videos/shapeunderstanding.mp4" type="video/mp4">
+          </video>
+          </div>
+          <p>
+            Given a query point on the surface, the learned shape code and a target pose code, we use an MLP to predict the offset of the query point.   
+          </p>
+          <div align="center">
+
+          
+          <video autoplay loop muted playsinline controls width="90%">
+            <source src="./static/videos/posetransfer.mp4" type="video/mp4">
+          </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="hr"></div>
+    <!-- Comparsion -->
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-four-fifths"> -->
+      <div class="column is-full-width">
+        <h2 class="title is-3">Comparison with previous methods</h2>
+          <!-- <p style="text-align: center;">
+          
+          </p> -->
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/compare1.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/compare2.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/compare3.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+    
+      </div>
+    </div>
+    <!-- Comparsion -->
+
+    <div class="hr"></div>
+
+    <!-- Comparsion -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Pose transfer from in-the-wild videos to stylized characters</h2>
+          
+            
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/video1.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/video2.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/video3.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding: 12px;"></div>
+            <div class="columns is-centered">              
+                <video id="dollyzoom" autoplay playsinline controls muted loop width="100%">
+                  <source src="static/videos/video4.mp4"
+                          type="video/mp4">
+                </video>
+            </div>
+
+
+            
+
+      </div>
+    </div>
+    <!-- Comparsion -->
+
+    <div class="hr"></div>
+    
+
+    
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{wang2023zero,
+      title={Zero-Shot Pose Transfer for Unrigged Stylized 3D Characters},
+      author={Wang, Jiashun and Li, Xueting and Liu, Sifei and De Mello, Shalini and Gallo, Orazio and Wang, Xiaolong and Kautz, Jan},
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+      pages={8704--8714},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <div class="columns is-centered"><p>
+            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://xrenaa.github.io/look-outside-room/">Here</a>.
+          </p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
